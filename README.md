@@ -8,6 +8,10 @@
 ![SQLite FTS5](https://img.shields.io/badge/SQLite-FTS5-003B57?logo=sqlite&logoColor=white)
 ![No Dependencies](https://img.shields.io/badge/dependencies-none-success)
 
+<img src="assets/architecture.svg" alt="nas-search 索引与查询链路" width="920">
+
+上：建索引一次；下：每次搜索只查内存索引。两条链路唯一的交集是 `index.db`。
+
 ## 解决什么问题
 
 NAS 上堆到几百万个文件之后，系统自带的搜索要么只能搜某个共享目录，要么慢到没法用。想找一个三个月前丢进去的 PDF，得靠翻目录。
