@@ -1,0 +1,15 @@
+# 构建产物
+*.fpk
+app.tgz
+*.tar.gz
+
+# Python
+__pycache__/
+*.pyc
+*.bak-*
+
+# 运行时
+*.sock
+*.log
+*.pid
+nas_search_config.json

@@ -1,0 +1,13 @@
+#!/bin/bash
+### 安装前回调 — 清理残留进程和 socket，避免安装时权限设置失败
+
+TRIM_APPDEST="${TRIM_APPDEST:-/var/apps/nas-search/target}"
+TRIM_PKGVAR="${TRIM_PKGVAR:-/vol1/@appdata/nas-search}"
+
+pkill -9 -f "nas-search.*datasette" 2>/dev/null || true
+pkill -9 -f "nas-search/venv/bin/datasette" 2>/dev/null || true
+sleep 1
+rm -f "${TRIM_APPDEST}/nas-search.sock" 2>/dev/null || true
+rm -f "${TRIM_PKGVAR}/nas-search.pid" 2>/dev/null || true
+
+exit 0

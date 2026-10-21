@@ -1,0 +1,45 @@
+#!/bin/bash
+# NAS Search - lifecycle script
+
+SOCKET="${TRIM_APPDEST}/nas-search.sock"
+PID_FILE="${TRIM_PKGVAR}/nas-search.pid"
+SERVER="${TRIM_APPDEST}/server/server.py"
+
+start() {
+    if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
+        echo "nas-search already running"
+        return 0
+    fi
+    mkdir -p "$TRIM_PKGVAR"
+    nohup python3 "$SERVER" "$SOCKET" >> "$TRIM_PKGVAR/nas-search.log" 2>&1 &
+    echo $! > "$PID_FILE"
+    echo "nas-search started pid=$!"
+}
+
+stop() {
+    if [ -f "$PID_FILE" ]; then
+        pid=$(cat "$PID_FILE")
+        kill "$pid" 2>/dev/null
+        rm -f "$PID_FILE"
+        echo "nas-search stopped"
+    fi
+    rm -f "$SOCKET"
+}
+
+status() {
+    if [ -f "$PID_FILE" ] && kill -0 $(cat "$PID_FILE") 2>/dev/null; then
+        echo "nas-search is running"
+        return 0
+    else
+        echo "nas-search is not running"
+        return 3
+    fi
+}
+
+case "${1:-}" in
+    start)   start ;;
+    stop)    stop ;;
+    restart) stop; sleep 1; start ;;
+    status)  status ;;
+    *)       echo "Usage: $0 {start|stop|restart|status}"; exit 1 ;;
+esac

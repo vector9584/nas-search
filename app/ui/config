@@ -1,0 +1,18 @@
+{
+    ".url": {
+        "nas-search.Application": {
+            "title": "NAS 全盘搜索",
+            "icon": "images/{0}.png",
+            "type": "iframe",
+            "protocol": "http",
+            "gatewaySocket": "nas-search.sock",
+            "gatewayPrefix": "/app/nas-search",
+            "port": "",
+            "url": "/app/nas-search",
+            "allUsers": true,
+            "control": {
+                "accessPerm": "readonly"
+            }
+        }
+    }
+}

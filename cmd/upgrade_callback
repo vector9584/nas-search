@@ -1,0 +1,8 @@
+#!/bin/bash
+### 升级完成回调
+
+TRIM_PKGVAR="${TRIM_PKGVAR:-/vol1/@appdata/nas-search}"
+mkdir -p "${TRIM_PKGVAR}" 2>/dev/null
+echo "$(date '+%Y-%m-%d %H:%M:%S') - upgrade_callback ok" >> "${TRIM_PKGVAR}/nas-search.log" 2>/dev/null || true
+
+exit 0
